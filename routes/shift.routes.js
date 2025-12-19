@@ -1,9 +1,9 @@
-import express from "express";
-import { createShift, getShifts } from "../controllers/shift.controller.js";
+// import express from "express";
+// import { createShift, getShifts } from "../controllers/shift.controller.js";
 
-const router = express.Router();
+// const router = express.Router();
 
-router.post("/", createShift);
-router.get("/", getShifts);
+// router.post("/", createShift);
+// router.get("/", getShifts);
 
-export default router;
+// export default router;

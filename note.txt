@@ -1,0 +1,63 @@
+  "roll": 12,
+  "class_id": 1,
+  "section_id": 1,
+  "shift_id": 1,
+  "group_id": 1,
+  "category": "Primary",
+
+  "session": "2025",
+  "gender": "M",
+  "religion": "Islam",
+  "blood_group": "A+",
+  "dob": "2010-05-12",
+
+  "birth_certificate": "BC123456",
+  "father_name": "Abdul Karim",
+  "father_nid": "1987654321",
+  "father_mobile": "01710000000",
+  "mother_name": "Fatema Begum",
+  "mother_nid": "2987654321",
+  "mother_mobile": "01820000000",
+
+  "present_address": "Mirpur, Dhaka",
+  "permanent_address": "Cumilla, Bangladesh",
+
+
+
+
+
+
+  const express = require('express');
+const dotenv = require('dotenv');
+const cors = require('cors');
+const hpp = require('hpp');
+const helmet = require('helmet');
+const mongoSanitize = require('express-mongo-sanitize');
+const rateLimit = require('express-rate-limit');
+const bodyParser = require('body-parser');
+const formData = require('form-data')
+dotenv.config();
+const connectDB = require('./config/db.config');
+
+
+const app = express();
+
+// Connect to database
+connectDB();
+
+// Middleware
+app.use(helmet());
+app.use(hpp());
+app.use(mongoSanitize());
+app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100 // limit each IP to 100 requests per windowMs
+});
+app.use(limiter);
+app.use(formData.parse());
+
+// Routes
+app.use('/api/v1',router)

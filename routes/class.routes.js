@@ -1,9 +1,9 @@
-import express from "express";
-import { createClass, getClasses } from "../controllers/class.controller.js";
+const  express= require("express");
+const classController= require("../controllers/class.controller.js");
 
 const router = express.Router();
 
-router.post("/", createClass);
-router.get("/", getClasses);
+router.post("/", classController.createClass);
+router.get("/", classController.getClass);
 
-export default router;
+module.exports = router;
