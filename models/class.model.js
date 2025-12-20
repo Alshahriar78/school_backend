@@ -2,14 +2,8 @@ const mongoose = require('mongoose');
 
 
 const classSchema = new mongoose.Schema({
-    name: {
-        type: String,required: true},
-    section:{ 
-        type: String,
-        enum: ["A","B","C","D"],
-        required: true
-    },
-    classId:{type:Number,required:true,unique:true}
+    className: {type: String,required: true,unique:true}, 
+    status: {type: String,enum: ["Active", "Inactive"],default: "Active",},
 },{timestamps:true});
 
 const ClassModel = mongoose.model('Class', classSchema);

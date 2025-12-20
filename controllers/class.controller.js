@@ -28,3 +28,18 @@ exports.getClass = async (req, res) => {
         res.status(500).json({ message: "Error retrieving classes", Error: error.message });
     }   
 };
+
+exports.getClassById = async (req,res) =>{
+    try {
+        const classId = req.params.id;
+        console.log(classId)
+        const clas = await classService.fetchClassById(classId);
+        res.status(200).json({
+            message: 'Class retrieved successfully',
+            data: clas
+        });
+    } catch (error) {
+        console.error("Get Classes Error:", error);
+        res.status(500).json({ message: "Error retrieving classes", Error: error.message });
+    }
+}

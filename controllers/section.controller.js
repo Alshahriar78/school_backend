@@ -1,23 +1,38 @@
-// import { SectionService } from "../services/section.service.js";
+const sectionSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String, // A, B, C
+      required: true,
+      uppercase: true,
+    },
 
-// export const createSection = async (req, res) => {
-//     try {
-//         const result = await SectionService.create(req.body);
-//         res.status(201).json({
-//             success: true,
-//             message: "Section created successfully",
-//             data: result
-//         });
-//     } catch (err) {
-//         res.status(500).json({ success: false, error: err.message });
-//     }
-// };
+    classId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Class",
+      required: true,
+    },
 
-// export const getSections = async (req, res) => {
-//     try {
-//         const result = await SectionService.getAll();
-//         res.status(200).json({ success: true, data: result });
-//     } catch (err) {
-//         res.status(500).json({ success: false, error: err.message });
-//     }
-// };
+    classTeacher: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Teacher",
+    },
+
+    totalStudents: {
+      type: Number,
+      default: 0,
+    },
+
+    shift: {
+      type: String,
+      enum: ["Morning", "Day"],
+      default: "Morning",
+    },
+
+    status: {
+      type: String,
+      enum: ["Active", "Inactive"],
+      default: "Active",
+    },
+  },
+  { timestamps: true }
+);
