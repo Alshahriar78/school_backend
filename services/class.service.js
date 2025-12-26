@@ -19,6 +19,6 @@ exports.fetchClasses = async () => {
 exports.fetchClassById = async (id) =>{
     return await ClassModel.aggregate([
   { $sort: { _id: 1 } },
-  { $match: { _id: mongoose.Types.ObjectId(id) } }
+  { $match: { _id: new mongoose.Types.ObjectId(id) } }
 ]);
 }

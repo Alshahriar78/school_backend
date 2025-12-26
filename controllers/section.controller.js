@@ -1,38 +1,18 @@
-const sectionSchema = new mongoose.Schema(
-  {
-    name: {
-      type: String, // A, B, C
-      required: true,
-      uppercase: true,
-    },
+const sectionService = require('../services/section.service');
 
-    classId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Class",
-      required: true,
-    },
-
-    classTeacher: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Teacher",
-    },
-
-    totalStudents: {
-      type: Number,
-      default: 0,
-    },
-
-    shift: {
-      type: String,
-      enum: ["Morning", "Day"],
-      default: "Morning",
-    },
-
-    status: {
-      type: String,
-      enum: ["Active", "Inactive"],
-      default: "Active",
-    },
-  },
-  { timestamps: true }
-);
+exports.createSection = async (req, res) => {
+    try {
+        if(!req.body || req.body === null || req.body === undefined){
+            return res.status(400).json({ message: 'Invalid class data' });
+        }
+        const sectionData = req.body; // Assuming class data is sent in the request body
+        const newSection = await sectionService.insertClass(sectionData);
+        res.status(201).json({
+            message: 'Section  created successfully',
+           data: newSection
+        });
+    } catch (error) {
+        console.error("Create Section Error:", error);
+         res.status(500).json({ message: "Error creating section", Error: error.message });
+    }               
+};
