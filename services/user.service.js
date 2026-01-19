@@ -21,3 +21,24 @@ exports.insertUser = async (data) =>{
     }
     return await UserModel.create(user);
 }
+
+
+exports.fetchUsers = async ()=>{
+    return await UserModel.aggregate([
+        {
+            $project: {
+                 __v:0,
+                 password:0,
+                _id: 0,
+            }
+        }
+    ]);
+};
+
+
+exports.fetchUserById = async (id) =>{
+    return await UserModel.aggregate([
+  { $sort: { _id: 1 } },
+  { $match: { _id: new mongoose.Types.ObjectId(id) } }
+]);
+}

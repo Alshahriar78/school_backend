@@ -5,7 +5,7 @@ const classController = require('../controllers/class.controller')
 const router = express.Router();
 
 router.post("/", userController.createUser);
-router.get("/", classController.getClass);
-router.get("/:id",classController.getClassById);
+router.get("/", userController.getUser);
+router.get("/:id",userController.getUserById);
 
 module.exports = router;

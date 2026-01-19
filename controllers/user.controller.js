@@ -16,3 +16,31 @@ exports.createUser = async (req,res) =>{
              res.status(500).json({ message: "Error creating User", Error: error.message });
         }     
 }
+
+exports.getUser = async (req,res) =>{
+    try {
+            const classes = await userServices.fetchUsers(); // Fetch all classes
+            res.status(200).json({
+                message: 'Classes retrieved successfully',
+                data: classes
+            });
+        } catch (error) {
+            console.error("Get Classes Error:", error);
+            res.status(500).json({ message: "Error retrieving classes", Error: error.message });
+        } 
+}
+
+
+exports.getUserById = async (req,res) =>{
+    try {
+        const userId = req.params.id;
+        const user = await userServices.fetchUserById(userId);
+        res.status(200).json({
+            message: 'Class retrieved successfully',
+            data: user
+        });
+    } catch (error) {
+        console.error("Get Classes Error:", error);
+        res.status(500).json({ message: "Error retrieving classes", Error: error.message });
+    }
+}
